@@ -32,7 +32,7 @@ public:
 		virtual void endTag(const std::string& name, const std::string& data) = 0;
 
 	protected:
-		static const std::string& getAttrib(StringPairList& attribs, const std::string& name, size_t hint);
+		static const std::string getAttrib(StringPairList& attribs, const std::string& name, size_t hint);
 	};
 
 	SimpleXMLReader(CallBack* callback);

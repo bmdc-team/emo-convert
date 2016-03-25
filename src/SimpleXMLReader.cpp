@@ -95,7 +95,7 @@ bool SimpleXMLReader::error(const char* e) {
 	throw ( Util::toString(pos) + ": " + e);
 }
 
-const string& SimpleXMLReader::CallBack::getAttrib(StringPairList& attribs, const string& name, size_t hint) {
+const string SimpleXMLReader::CallBack::getAttrib(StringPairList& attribs, const string& name, size_t hint) {
 	hint = min(hint, attribs.size());
 
 	StringPairIter i = find_if(attribs.begin() + hint, attribs.end(), CompareFirst<string, string>(name));
