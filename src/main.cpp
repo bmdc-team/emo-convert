@@ -19,6 +19,7 @@
 #include "SimpleXML.h"
 #include "File.h"
 #include <string>
+#include <iostream>
 #include <map>
 using std::string;
 using std::map;
@@ -35,10 +36,30 @@ string Escape(string str)
 	}	
 	return tmp;	
 }
+void log(string text)
+{
+	std::cout << text << std::endl;;
+}
 
 int main(int argc ,char *argv[]) {
 
-	if(argc <= 1) return 1;
+	if(argc < 2)
+	{
+	 log("Used with 0 params\n,Use with one (file to convert)\nand a second converted file (without bmdc.xml)\n");
+	 log("Example: convert-emoticons name_file_input name_file_output\n");		
+	 return 1;
+	}
+
+	if(argv[1] == NULL) 
+	{
+		log("arg one wasnt specified");
+		return 1;
+	}
+	if(argv[2] == NULL) 
+	{	
+		log("arg two wasnt specified");
+		return 1; 
+	}	
 	
 	map<string,string> emoticons;
 	SimpleXML xml;
@@ -58,7 +79,7 @@ int main(int argc ,char *argv[]) {
 			}
 		}
 	} catch(...) {
-		printf("EmoticonsManager::Create:1 \n");
+		log("EmoticonsManager::Create:1 \n");
 	}
 	//czdc
 try{
@@ -78,7 +99,7 @@ try{
 			xml.stepOut();	
 		}	
 	} catch(...) {
-		printf("EmoticonsManager::Create:2 \n");
+		log("EmoticonsManager::Create:2 \n");
 	}
 
 		printf("size %d",emoticons.size());
@@ -96,13 +117,14 @@ try{
 		}
 		aXml.stepOut();
 		
-		string fname = string(argv[1]) + ".xml.bmdc.xml";
+		string fname = string(argv[2]) + ".bmdc.xml";
+	
 	try {	
 		File f(fname, File::WRITE, File::CREATE | File::TRUNCATE);
 		f.write(SimpleXML::utf8Header);
 		f.write(aXml.toXML());
 		f.close();
-	}catch(...){ printf("Not Safe"); return 1;}	
+	}catch(...){ log("Not Safed"); return 1;}	
 		return 0;
 
 }
