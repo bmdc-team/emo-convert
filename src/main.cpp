@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Mank 2013-2014 freedcpp at seznam  dot cz
+ * Copyright (C) Mank 2013-2016 freedcpp at seznam  dot cz
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -80,6 +80,7 @@ try{
 	} catch(...) {
 		printf("EmoticonsManager::Create:2 \n");
 	}
+
 		printf("size %d",emoticons.size());
 		SimpleXML aXml;
 		aXml.addTag("emoticons-map");
