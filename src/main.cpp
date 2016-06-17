@@ -21,6 +21,7 @@
 #include <string>
 #include <iostream>
 #include <map>
+ 
 using std::string;
 using std::map;
 using namespace dcpp;
@@ -36,16 +37,24 @@ string Escape(string str)
 	}	
 	return tmp;	
 }
-void log(string text)
+void log(string text , int val)
 {
-	std::cout << text << std::endl;;
+	std::cout << text << val << std::endl;
+}
+
+void log(string text,string pam = "")
+{
+	std::cout << text;
+	if(!pam.empty())
+		std::cout << pam;
+	std::cout << std::endl;
 }
 
 int main(int argc ,char *argv[]) {
 
 	if(argc < 2)
 	{
-	 log("Used with 0 params\n,Use with one (file to convert)\nand a second converted file (without bmdc.xml)\n");
+	 log("Used with 0 params.\nUse with one (file to convert)\nand a second converted file (without bmdc.xml)\n");
 	 log("Example: convert-emoticons name_file_input name_file_output\n");		
 	 return 1;
 	}
@@ -72,9 +81,9 @@ int main(int argc ,char *argv[]) {
 			printf("test");
 			while(xml.findChild("Emoticon")) {
 				string strEmotionText = xml.getChildAttrib("PasteText");
-				printf("%s", strEmotionText.c_str());
+				log("PasteText", strEmotionText.c_str());
 				string strEmotionBmpPath = xml.getChildAttrib("Bitmap");
-				printf("%s", strEmotionBmpPath.c_str());
+				log("Bitmap", strEmotionBmpPath.c_str());
 				emoticons.insert( make_pair(strEmotionText, Escape(strEmotionBmpPath)));
 			}
 		}
@@ -88,11 +97,10 @@ try{
 			xml.stepIn();
 			printf("test");
 			while(xml.findChild("Emotion")) {
-			string strEmotionText = xml.getChildAttrib("ReplacedText");
-								printf("%s", strEmotionText.c_str());
-
+				string strEmotionText = xml.getChildAttrib("ReplacedText");
+				log("ReplacedText", strEmotionText.c_str());
 				string strEmotionBmpPath = xml.getChildAttrib("BitmapPath");
-								printf("%s", strEmotionBmpPath.c_str());
+				log("BitmapPath", strEmotionBmpPath.c_str());
 
 				emoticons.insert(make_pair(strEmotionText, Escape(strEmotionBmpPath)));
 			}
@@ -102,7 +110,7 @@ try{
 		log("EmoticonsManager::Create:2 \n");
 	}
 
-		printf("size %d",emoticons.size());
+		log("Size",emoticons.size());
 		SimpleXML aXml;
 		aXml.addTag("emoticons-map");
 		aXml.addChildAttrib("name",Util::getFileName(argv[1]));
@@ -125,6 +133,6 @@ try{
 		f.write(aXml.toXML());
 		f.close();
 	}catch(...){ log("Not Safed"); return 1;}	
-		return 0;
+	return 0;
 
 }
