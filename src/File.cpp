@@ -22,8 +22,11 @@
 #include <memory>
 #include "Text.h"
 #include "Util.hh"
+
 namespace dcpp {
+
 using namespace dcpp;
+
 #ifdef _WIN32
 File::File(const string& aFileName, int access, int mode) {
 	dcassert(access == WRITE || access == READ || access == (READ | WRITE));
