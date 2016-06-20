@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Mank 2013-2016 freedcpp at seznam  dot cz
+ * Copyright (C) Mank 2013-2016
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,6 +37,7 @@ string Escape(string str)
 	}	
 	return tmp;	
 }
+
 void log(string text , int val)
 {
 	std::cout << text << val << std::endl;
